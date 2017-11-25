@@ -44,6 +44,7 @@ public class SymmetricCryp {
 		SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
 		return originalKey;
 	}
+
 	// 1.3 Mã hóa thông điệp có 2 tham số: Tham số 1 là chuỗi cần mã hóa, tham số
 	// thứ 2 là khóa được tạo ở 1.1
 	public String encryptText(String msg) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
@@ -79,7 +80,7 @@ public class SymmetricCryp {
 		cipher.init(Cipher.DECRYPT_MODE, key);
 		return new String(cipher.doFinal(Base64.getDecoder().decode(msg)), "UTF-8");
 	}
-	
+
 	public static void main(String[] args) throws Exception {
 		// 1.7 Sử dụng class SymetricCryp để mã hóa một chuỗi cho trước hoặc giải mã ra
 		// bản rõ từ bản mã cho trước.
