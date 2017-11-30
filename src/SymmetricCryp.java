@@ -45,14 +45,7 @@ public class SymmetricCryp {
 		return originalKey;
 	}
 
-	// 1.3 Mã hóa thông điệp có 2 tham số: Tham số 1 là chuỗi cần mã hóa, tham số
-	// thứ 2 là khóa được tạo ở 1.1
-	public String encryptText(String msg) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
-			UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException {
-		cipher = Cipher.getInstance(Algorithm);
-		cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-		return Base64.getEncoder().encodeToString(cipher.doFinal(msg.getBytes("UTF-8")));
-	}
+
 
 	// 1.4 Mã hóa thông điệp có 2 tham số: Tham số 1 là chuỗi cần mã hóa tham số 2
 	// là khóa được tạo ở 1.2
@@ -61,15 +54,6 @@ public class SymmetricCryp {
 		cipher = Cipher.getInstance(Algorithm);
 		cipher.init(Cipher.ENCRYPT_MODE, key);
 		return Base64.getEncoder().encodeToString(cipher.doFinal(msg.getBytes("UTF-8")));
-	}
-
-	// 1.5 Giải mã có 2 tham số: Tham số 1 là bản mã, tham số thứ 2 là khóa bí mật
-	// được tạo ở 1.1
-	public String decryptText(String msg) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
-			IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
-		cipher = Cipher.getInstance(Algorithm);
-		cipher.init(Cipher.DECRYPT_MODE, secretKey);
-		return new String(cipher.doFinal(Base64.getDecoder().decode(msg)), "UTF-8");
 	}
 
 	// 1.6 Giải mã có 2 tham số: Tham số 1 là bản mã, tham số thứ 2 là khóa bí mật
@@ -89,9 +73,13 @@ public class SymmetricCryp {
 		System.out.println("Plain text: " + msg);
 		String encodedKey = Base64.getEncoder().encodeToString(SC.getSecretKey().getEncoded());
 		System.out.println("Khóa đối xứng được sinh: " + encodedKey);
-		String encrypted = SC.encryptText(msg);
+		// 1.3 Mã hóa thông điệp có 2 tham số: Tham số 1 là chuỗi cần mã hóa, tham số
+		// thứ 2 là khóa được tạo ở 1.1
+		String encrypted = SC.encryptText(msg, SC.getSecretKey());
 		System.out.println("Encrypted text: " + encrypted);
-		String decrypted = SC.decryptText(encrypted);
+		// 1.5 Giải mã có 2 tham số: Tham số 1 là bản mã, tham số thứ 2 là khóa bí mật
+		// được tạo ở 1.1
+		String decrypted = SC.decryptText(encrypted, SC.getSecretKey());
 		System.out.println("Decrypted text: " + decrypted);
 		System.out.print("==================================\n");
 		String newmsg = "Chuỗi thứ 2 cần mã hóa";
