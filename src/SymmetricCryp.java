@@ -45,8 +45,6 @@ public class SymmetricCryp {
 		return originalKey;
 	}
 
-
-
 	// 1.4 Mã hóa thông điệp có 2 tham số: Tham số 1 là chuỗi cần mã hóa tham số 2
 	// là khóa được tạo ở 1.2
 	public String encryptText(String msg, SecretKey key) throws NoSuchAlgorithmException, NoSuchPaddingException,
