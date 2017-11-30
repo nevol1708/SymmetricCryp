@@ -11,8 +11,6 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 public class SymmetricCryp {
-	// thuật toán mã hóa
-	private final String Algorithm = "AES";
 	// khóa
 	private SecretKey secretKey;
 	// sinh khóa
@@ -28,7 +26,7 @@ public class SymmetricCryp {
 	// hàm tạo
 	public SymmetricCryp() throws NoSuchAlgorithmException {
 		// khởi tạo keygenerator
-		keyGen = KeyGenerator.getInstance(Algorithm);
+		keyGen = KeyGenerator.getInstance("AES");
 		// khởi tạo khóa đối xứng
 		secretKey = keyGen.generateKey();
 	}
@@ -49,7 +47,7 @@ public class SymmetricCryp {
 	// là khóa được tạo ở 1.2
 	public String encryptText(String msg, SecretKey key) throws NoSuchAlgorithmException, NoSuchPaddingException,
 			InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException {
-		cipher = Cipher.getInstance(Algorithm);
+		cipher = Cipher.getInstance("AES");
 		cipher.init(Cipher.ENCRYPT_MODE, key);
 		return Base64.getEncoder().encodeToString(cipher.doFinal(msg.getBytes("UTF-8")));
 	}
@@ -58,7 +56,7 @@ public class SymmetricCryp {
 	// được tạo ở 1.2
 	public String decryptText(String msg, SecretKey key) throws NoSuchAlgorithmException, NoSuchPaddingException,
 			InvalidKeyException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
-		cipher = Cipher.getInstance(Algorithm);
+		cipher = Cipher.getInstance("AES");
 		cipher.init(Cipher.DECRYPT_MODE, key);
 		return new String(cipher.doFinal(Base64.getDecoder().decode(msg)), "UTF-8");
 	}
