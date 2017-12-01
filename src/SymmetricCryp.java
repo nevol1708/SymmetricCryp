@@ -9,6 +9,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.MessageDigest;
 
 public class SymmetricCryp {
 	// khóa
@@ -40,6 +41,14 @@ public class SymmetricCryp {
 	public SecretKey generateKey(String encodedKey) {
 		byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
 		SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+		return originalKey;
+	}
+	public SecretKey generateKeyFromString(String input) {
+		byte[] inputKey = input.getBytes("UTF-8");
+		MessageDigest sha = MessageDigest.getInstance("SHA-1");
+		inputKey = sha.digest(inputKey);
+		inputKey = Arrays.copyOf(inputKey, 16);
+		SecretKey originalKey = new SecretKeySpec(inputKey, 0, inputKey.length, "AES");
 		return originalKey;
 	}
 
@@ -81,7 +90,7 @@ public class SymmetricCryp {
 		String newmsg = "Chuỗi thứ 2 cần mã hóa";
 		System.out.println("Plain text: " + newmsg);
 		// 1.2 Tạo khóa đối xứng từ một chuỗi cho trước ISt0DMalksQteZmDlRKj/g==
-		SecretKey newKey = SC.generateKey("ISt0DMalksQteZmDlRKj/g==");
+		SecretKey newKey = SC.generateKeyFromString("abc123");
 		String newencodedKey = Base64.getEncoder().encodeToString(newKey.getEncoded());
 		System.out.println("Khóa đối xứng được cung cấpz: " + newencodedKey);
 		// 1.4 Mã hóa thông điệp có 2 tham số: Tham số 1 là chuỗi cần mã hóa tham số 2
