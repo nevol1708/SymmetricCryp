@@ -1,6 +1,7 @@
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.Base64;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -43,7 +44,7 @@ public class SymmetricCryp {
 		SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
 		return originalKey;
 	}
-	public SecretKey generateKeyFromString(String input) {
+	public SecretKey generateKeyFromString(String input) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 		byte[] inputKey = input.getBytes("UTF-8");
 		MessageDigest sha = MessageDigest.getInstance("SHA-1");
 		inputKey = sha.digest(inputKey);
@@ -91,7 +92,7 @@ public class SymmetricCryp {
 		System.out.println("Plain text: " + newmsg);
 		// 1.2 Tạo khóa đối xứng từ một chuỗi cho trước ISt0DMalksQteZmDlRKj/g==
 		SecretKey newKey = SC.generateKeyFromString("abc123");
-		System.out.println("Khóa đối xứng được cung cấp: " + newencodedKey);
+		// System.out.println("Khóa đối xứng được cung cấp: " + newencodedKey);
 		// 1.4 Mã hóa thông điệp có 2 tham số: Tham số 1 là chuỗi cần mã hóa tham số 2
 		// là khóa được tạo ở 1.2
 		String newencrypted = SC.encryptText(newmsg, newKey);
