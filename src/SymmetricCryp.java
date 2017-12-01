@@ -48,7 +48,7 @@ public class SymmetricCryp {
 		byte[] inputKey = input.getBytes("UTF-8");
 		MessageDigest sha = MessageDigest.getInstance("SHA-1");
 		inputKey = sha.digest(inputKey);
-		inputKey = Arrays.copyOf(inputKey, 16);
+		inputKey = Arrays.copyOf(inputKey, 16);	// Chỉ sử dụng 128 bit đầu tiên
 		SecretKey originalKey = new SecretKeySpec(inputKey, 0, inputKey.length, "AES");
 		return originalKey;
 	}
@@ -92,7 +92,6 @@ public class SymmetricCryp {
 		System.out.println("Plain text: " + newmsg);
 		// 1.2 Tạo khóa đối xứng từ một chuỗi cho trước ISt0DMalksQteZmDlRKj/g==
 		SecretKey newKey = SC.generateKeyFromString("abc123");
-		// System.out.println("Khóa đối xứng được cung cấp: " + newencodedKey);
 		// 1.4 Mã hóa thông điệp có 2 tham số: Tham số 1 là chuỗi cần mã hóa tham số 2
 		// là khóa được tạo ở 1.2
 		String newencrypted = SC.encryptText(newmsg, newKey);
