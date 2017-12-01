@@ -91,8 +91,7 @@ public class SymmetricCryp {
 		System.out.println("Plain text: " + newmsg);
 		// 1.2 Tạo khóa đối xứng từ một chuỗi cho trước ISt0DMalksQteZmDlRKj/g==
 		SecretKey newKey = SC.generateKeyFromString("abc123");
-		String newencodedKey = Base64.getEncoder().encodeToString(newKey.getEncoded());
-		System.out.println("Khóa đối xứng được cung cấpz: " + newencodedKey);
+		System.out.println("Khóa đối xứng được cung cấp: " + newencodedKey);
 		// 1.4 Mã hóa thông điệp có 2 tham số: Tham số 1 là chuỗi cần mã hóa tham số 2
 		// là khóa được tạo ở 1.2
 		String newencrypted = SC.encryptText(newmsg, newKey);
